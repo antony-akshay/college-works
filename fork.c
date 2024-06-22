@@ -3,6 +3,7 @@
 
 int main(){
 	pid_t pid;
+	pid=fork();
 	int n=5;
 	if(pid<0){
 		printf("error occured while creating new child process\n");
