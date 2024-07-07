@@ -5,7 +5,7 @@ struct frame_LFU
     int content;
     int frequency;
     int count;
-} frame_LFU[10];
+} frames_LFU[10];
 
 int main()
 {
@@ -20,49 +20,60 @@ int main()
     printf("enter the size of frame");
     scanf("%d", &m);
 
-    LRU(pages, n, m);
+    lfu(pages, n, m);
 }
 
 
-void LRU(int pages[],int n,int f){
-    int i,j,id=0,cnt=1,min,pf=0;
+void lfu(int pages[],int n,int f){
+
+    int i,j,id=0,k,cnt=1,min,pf=0;
+    
     for(i=0;i<n;i++){
-        frame_LFU[i].content=-1;
-        frame_LFU[i].count=0;
-        frame_LFU[i].frequency=0;
+        frames_LFU[i].content=-1;
+        frames_LFU[i].count=0;
+        frames_LFU[i].freq=0;
     }
 
     for(i=0;i<n;i++){
         for(j=0;j<f;j++){
-            if(frame_LFU[j].content==pages[i]){
+            if(frames_LFU[j].content==pages[i]){
                 printf("hit");
-                frame_LFU[i].frequency++;
+                frames_LFU[j].freq++;
+                frames_LFU[j].count=cnt++;
                 break;
             }
         }
         if(j==f){
             printf("miss");
             if(id<f){
-                frame_LFU[i].content=pages[i];
-                frame_LFU[i].frequency++;
-                frame_LFU[i].count=cnt++;
+                frames_LFU[id].content=pages[i];
+                frames_LFU[id].count=cnt++;
+                frames_LFU[id].freq=1;
                 id++;
             }
             else{
                 min=0;
-                for(j=0;j<f;j++){
-                    if(frame_LFU[j].frequency<frame_LFU[min].frequency){
-                        min=j;
+                for(k=0;k<f;k++){
+                    if(frames_LFU[k].freq<frames_LFU[min].freq){
+                        min=k;
                     }
-                    else if(frame_LFU[j].frequency<frame_LFU[min].frequency && frame_LFU[min].count>frame_LFU[j].count){
-                        min=j;
+
+                    else if(frames_LFU[k].freq==frames_LFU[min].freq && frames_LFU[k].count<frames_LFU[min].count){
+                            min=k;
                     }
                 }
-                frame_LFU[min].content=pages[i];
-                frame_LFU[min].frequency=1;
-                frame_LFU[min].count=cnt++;
+                frames_LFU[min].content=pages[i];
+                frames_LFU[min].freq=1;
+                frames_LFU[min].count=cnt++;
             }
             pf++;
         }
+         for (j = 0; j < f; j++)
+        {
+            if (frames_LFU[j].content != -1)
+                printf("%d ", frames_LFU[j].content);
+        }
+        printf("\n");
     }
+    printf("page fault:%d",pf);
 }
