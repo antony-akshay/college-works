@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <sys/param.h>
 #include <string.h>
 
 void main() {
@@ -23,13 +22,19 @@ void main() {
     }
     result[k] = '\0';
 
+    for(i=k;i>=0;i--){
+        printf("%c",result[i]);
+    }
+
     for (int x = 0; x < k/2; x++) {
             char temp = result[x];
             result[x] = result[k-1-x];
             result[k-1-x] = temp;
     }
 
-    printf("%s\n", result);
+
+
+    // printf("%s\n", result);
 
     return ;
 }
