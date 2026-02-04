@@ -4,7 +4,7 @@
 int strStr(char* haystack, char* needle) {
     char* result = strstr(haystack,needle);
     // printf("%d",result);
-    printf("%d",haystack-result);
+    printf("%d",result-haystack);
     if(result != NULL){
         return result-haystack;
     }
