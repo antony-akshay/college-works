@@ -1,0 +1,30 @@
+#include<stdio.h>
+#include<string.h>
+
+int main(){
+    char a[] = "1011";
+    char b[] = "1111";
+    int i = strlen(a)-1;
+    int j = strlen(b)-1;
+    int carry = 0,sum,k=0;
+    char result[strlen(a) > strlen(b) ? strlen(a)+2 : strlen(b)+2];
+
+    while (i>=0 || j >=0 || carry > 0) {
+        sum = carry;
+        if(i>= 0) sum+= a[i] - '0';
+        if(j>= 0) sum+= b[j] - '0';
+        int digit = sum % 2;
+        carry = sum / 2;
+        result[k++]=digit + '0';
+        i--;j--;
+    }
+    result[k] = '\0';
+
+    for(int x=0;x<k/2;x++){
+        char temp = result[x];
+        result[x] = result[k-1-x];
+        result[k-1-x]=temp;
+    }
+
+    printf("%s",result);
+}

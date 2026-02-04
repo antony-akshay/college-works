@@ -2,7 +2,7 @@
 
  int main(){
     int i,j,c=0;
-    int arr[] = {7};
+    int arr[] = {7,6,3,3,3,2,1};
     int size = sizeof(arr) / sizeof(arr[0]);
     printf("size:%d\n",size);
 
